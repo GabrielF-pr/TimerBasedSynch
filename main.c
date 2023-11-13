@@ -4,15 +4,11 @@
 #include "wheel.h"
 #include "LinkedListApi.h"
 
-pthread_mutex_t slot_mutex = PTHREAD_MUTEX_INITIALIZER;
-
 static wheel_timer_t *wt = NULL;
 static wheel_elem_t *we = NULL;
 static ll_t *rt_table = NULL;
 static char data_buffer[1024];
 static int sockfd = 0;
-static int data_recv = -1;
-static int flag = 1;
 
 typedef struct key{
 	char address[16];
@@ -154,8 +150,6 @@ int main(){
 	
 	wt = init_wheel_timer(10, 1);
 	start_wheel_timer(wt);
-	
-	pthread_mutex_init(&slot_mutex, NULL);
 
 	rt_table = init_singly_ll();
 	
